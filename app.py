@@ -5,8 +5,10 @@ import pickle
 import numpy as np
 import sklearn
 from sklearn.preprocessing import StandardScaler
+
 app = Flask(__name__)
 model = pickle.load(open('random_forest_regression_model.pkl', 'rb'))
+
 @app.route('/',methods=['GET'])
 def Home():
     return render_template('index.html')
@@ -26,9 +28,12 @@ def predict():
         if(Fuel_Type_Petrol=='Petrol'):
                 Fuel_Type_Petrol=1
                 Fuel_Type_Diesel=0
-        else:
+        elif(Fuel_Type_Petrol=='Diesel'):
             Fuel_Type_Petrol=0
             Fuel_Type_Diesel=1
+        else:
+            Fuel_Type_Petrol=0
+            Fuel_Type_Diesel=0
         Year=2020-Year
         Seller_Type_Individual=request.form['Seller_Type_Individual']
         if(Seller_Type_Individual=='Individual'):
